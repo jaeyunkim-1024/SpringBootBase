@@ -1,8 +1,9 @@
 package com.sample.base.service;
 
-import com.sample.base.dto.UserDto;
-import com.sample.base.dto.UserJoinRequestDto;
-import com.sample.base.repository.UserRepository;
+import com.sample.base.user.dto.UserDto;
+import com.sample.base.user.dto.UserJoinRequestDto;
+import com.sample.base.user.repository.UserRepository;
+import com.sample.base.user.service.JoinService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

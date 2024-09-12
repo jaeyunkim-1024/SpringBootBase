@@ -1,4 +1,4 @@
-package com.sample.base.dto;
+package com.sample.base.user.dto;
 
 import lombok.Builder;
 import lombok.Data;

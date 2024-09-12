@@ -1,7 +1,7 @@
-package com.sample.base.entity;
+package com.sample.base.user.entity;
 
-import com.sample.base.dto.LoginRequestDto;
-import com.sample.base.dto.UserJoinRequestDto;
+import com.sample.base.user.dto.LoginRequestDto;
+import com.sample.base.user.dto.UserJoinRequestDto;
 import com.sample.base.util.EncryptUtil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

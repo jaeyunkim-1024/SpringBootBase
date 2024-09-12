@@ -1,8 +1,8 @@
-package com.sample.base.controller;
+package com.sample.base.user.controller;
 
-import com.sample.base.dto.UserDto;
-import com.sample.base.dto.UserJoinRequestDto;
-import com.sample.base.service.JoinService;
+import com.sample.base.user.dto.UserDto;
+import com.sample.base.user.dto.UserJoinRequestDto;
+import com.sample.base.user.service.JoinService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

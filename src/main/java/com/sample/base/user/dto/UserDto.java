@@ -1,6 +1,6 @@
-package com.sample.base.dto;
+package com.sample.base.user.dto;
 
-import com.sample.base.entity.User;
+import com.sample.base.user.entity.User;
 import lombok.Builder;
 import lombok.Data;
 

@@ -1,9 +1,9 @@
-package com.sample.base.service;
+package com.sample.base.user.service;
 
-import com.sample.base.dto.LoginRequestDto;
-import com.sample.base.dto.UserDto;
-import com.sample.base.entity.User;
-import com.sample.base.repository.UserRepository;
+import com.sample.base.user.dto.LoginRequestDto;
+import com.sample.base.user.dto.UserDto;
+import com.sample.base.user.entity.User;
+import com.sample.base.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

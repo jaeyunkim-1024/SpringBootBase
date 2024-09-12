@@ -33,7 +33,7 @@
 ### Function
 <ul>
 <li>Sha256 단방향 암호화 및 JWT 토큰 이용 로그인 구현(진행 중)</li>
-<li>SpringSecurity 이용 사용자 정보 마스킹 처리(진행 예정)</li>
+<li>SpringSecurity 이용 로그인 처리(진행 예정)</li>
 <li>STOMP 이용한 소켓 채팅 구현(진행 예정)</li>
 <li>Redis & kafka 이용한 실시간 채팅 처리 (진행 예정)</li>
 </ul>

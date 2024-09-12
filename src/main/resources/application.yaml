@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: base
+  # H2 Setting Info (H2 Console? ???? ?? ???? ??)
+  h2:
+    console:
+      enabled: true  # H2 Console? ???? ?? (H2 Console? H2 Database? UI? ????? ??)
+      path: /h2-console  # H2 Console? Path
+  # Database Setting Info (Database? H2? ???? ?? H2?? ?? ??)
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:base;MODE=MYSQL;DATABASE_TO_UPPER=false
+    username: sa
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true # sql ? ?? jpql ??????  ???? ??
+  sql:
+    init:
+      schema-locations: classpath:h2/schema.sql
+#      data-locations: classpath:h2/data.sql

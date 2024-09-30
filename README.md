@@ -3,7 +3,7 @@
 ### 개발 환경 Spec
 <ul>
 <li>JDK : 17</li>
-<li>SpringBoot: 3.3.3</li>
+<li>SpringBoot: 3.3.4</li>
 <li>DB : H2 DataBase</li>
 </ul>
 

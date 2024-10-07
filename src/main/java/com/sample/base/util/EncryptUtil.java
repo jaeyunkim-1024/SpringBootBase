@@ -1,11 +1,22 @@
 package com.sample.base.util;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class EncryptUtil {
+public class EncryptUtil implements PasswordEncoder {
+    @Override
+    public String encode(CharSequence rawPassword) {
+        return sha256Encrypt(rawPassword.toString());
+    }
 
-    public static String sha256Encrypt(String input) {
+    @Override
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        return sha256Encrypt(encodedPassword).equals(encode(rawPassword));
+    }
+
+    private String sha256Encrypt(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hash = md.digest(input.getBytes());

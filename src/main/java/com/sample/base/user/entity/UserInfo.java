@@ -2,12 +2,12 @@ package com.sample.base.user.entity;
 
 import com.sample.base.user.dto.LoginRequestDto;
 import com.sample.base.user.dto.UserJoinRequestDto;
-import com.sample.base.util.EncryptUtil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Builder
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "USER_INFO")
 @Getter
-public class User {
+public class UserInfo {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "USER_SEQ")
@@ -30,18 +30,18 @@ public class User {
     @Column(name = "USER_NAME")
     private String userName;
 
-    public static User fromDto(LoginRequestDto dto){
-        return User.builder()
+    public static UserInfo fromDto(LoginRequestDto dto, PasswordEncoder encoder){
+        return UserInfo.builder()
                 .loginId(dto.getLoginId())
-                .password(EncryptUtil.sha256Encrypt(dto.getPassword()))
+                .password(encoder.encode(dto.getPassword()))
                 .userName(dto.getUserName())
                 .build();
     }
 
-    public static User fromDto(UserJoinRequestDto dto){
-        return User.builder()
+    public static UserInfo fromDto(UserJoinRequestDto dto, PasswordEncoder encoder){
+        return UserInfo.builder()
                 .loginId(dto.getLoginId())
-                .password(EncryptUtil.sha256Encrypt(dto.getPassword()))
+                .password(encoder.encode(dto.getPassword()))
                 .userName(dto.getUserName())
                 .build();
     }

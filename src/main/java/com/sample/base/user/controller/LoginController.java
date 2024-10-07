@@ -1,7 +1,6 @@
 package com.sample.base.user.controller;
 
 import com.sample.base.user.dto.LoginRequestDto;
-import com.sample.base.user.dto.UserDto;
 import com.sample.base.user.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     private final LoginService loginService;
 
-    @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@RequestBody LoginRequestDto dto){
-        return ResponseEntity
-                .ok()
-                .body(loginService.login(dto));
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<UserDto> login(@RequestBody LoginRequestDto dto){
+//        return ResponseEntity
+//                .ok()
+//                .body(loginService.login(dto));
+//    }
 
     @PostMapping("/logout")
     public ResponseEntity logout(@RequestBody LoginRequestDto dto){

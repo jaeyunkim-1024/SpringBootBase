@@ -1,6 +1,6 @@
 package com.sample.base.user.dto;
 
-import com.sample.base.user.entity.User;
+import com.sample.base.user.entity.UserInfo;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,7 +11,7 @@ public class UserDto {
     private String loginId;
     private String userName;
 
-    public static UserDto fromEntity(User entity){
+    public static UserDto fromEntity(UserInfo entity){
         return UserDto.builder()
 //                .userSeq(entity.getUserSeq())
                 .loginId(entity.getLoginId())

@@ -3,31 +3,33 @@ package com.sample.base.user.service;
 
 import com.sample.base.user.dto.UserDto;
 import com.sample.base.user.dto.UserJoinRequestDto;
-import com.sample.base.user.entity.User;
+import com.sample.base.user.entity.UserInfo;
 import com.sample.base.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class JoinService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserDto join(UserJoinRequestDto dto){
-        User user = userRepository.findUserByLoginId(dto.getLoginId());
-        if(user == null){
-            User newUser = User.fromDto(dto);
-            return UserDto.fromEntity(userRepository.save(newUser));
+        UserInfo userInfo = userRepository.findUserByLoginId(dto.getLoginId());
+        if(userInfo == null){
+            UserInfo newUserInfo = UserInfo.fromDto(dto,passwordEncoder);
+            return UserDto.fromEntity(userRepository.save(newUserInfo));
         }
-        return UserDto.fromEntity(user);
+        return UserDto.fromEntity(userInfo);
     }
 
     public void withDraw(UserJoinRequestDto dto){
-        User user = userRepository.findUserByLoginId(dto.getLoginId());
-        if(user != null){
-            userRepository.delete(user);
+        UserInfo userInfo = userRepository.findUserByLoginId(dto.getLoginId());
+        if(userInfo != null){
+            userRepository.delete(userInfo);
         }
     }
 }

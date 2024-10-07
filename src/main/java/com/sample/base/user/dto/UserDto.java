@@ -13,7 +13,7 @@ public class UserDto {
 
     public static UserDto fromEntity(User entity){
         return UserDto.builder()
-                .userSeq(entity.getUserSeq())
+//                .userSeq(entity.getUserSeq())
                 .loginId(entity.getLoginId())
                 .userName(entity.getUserName())
                 .build();

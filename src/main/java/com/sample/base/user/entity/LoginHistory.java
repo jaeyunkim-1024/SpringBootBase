@@ -25,6 +25,6 @@ public class LoginHistory {
     private Long userSeq;
 
     // 로그인 시간
-    @Column(name = "LOGIN_AT")
+    @Column(name = "LOGIN_AT", insertable = false)
     private Timestamp loginAt;
 }

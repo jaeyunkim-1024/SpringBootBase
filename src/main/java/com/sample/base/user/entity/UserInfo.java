@@ -1,13 +1,12 @@
 package com.sample.base.user.entity;
 
-import com.sample.base.user.dto.LoginRequestDto;
 import com.sample.base.user.dto.UserJoinRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Builder
@@ -30,15 +29,7 @@ public class UserInfo {
     @Column(name = "USER_NAME")
     private String userName;
 
-    public static UserInfo fromDto(LoginRequestDto dto, PasswordEncoder encoder){
-        return UserInfo.builder()
-                .loginId(dto.getLoginId())
-                .password(encoder.encode(dto.getPassword()))
-                .userName(dto.getUserName())
-                .build();
-    }
-
-    public static UserInfo fromDto(UserJoinRequestDto dto, PasswordEncoder encoder){
+    public static UserInfo fromDto(UserJoinRequestDto dto, BCryptPasswordEncoder encoder){
         return UserInfo.builder()
                 .loginId(dto.getLoginId())
                 .password(encoder.encode(dto.getPassword()))

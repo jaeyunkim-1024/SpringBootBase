@@ -50,6 +50,7 @@ dependencies {
 	/// 스프링 시큐리티 적용
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
 	implementation 'org.springframework.boot:spring-boot-starter-security:3.3.4'
+	testImplementation("org.springframework.security:spring-security-test")
 
 }
 

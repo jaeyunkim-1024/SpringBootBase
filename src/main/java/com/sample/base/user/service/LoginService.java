@@ -1,5 +1,6 @@
 package com.sample.base.user.service;
 
+import com.sample.base.common.constants.Role;
 import com.sample.base.user.entity.LoginHistory;
 import com.sample.base.user.entity.UserInfo;
 import com.sample.base.user.repository.LoginHistoryRepository;
@@ -19,25 +20,32 @@ public class LoginService implements UserDetailsService {
     private final UserRepository userRepository;
     private final LoginHistoryRepository loginHistoryRepository;
 
-    private void loginRecord(Long userSeq){
-        LoginHistory loginHistory = LoginHistory.builder()
-                .userSeq(userSeq)
-                .build();
-        loginHistoryRepository.save(loginHistory);
-    }
-
     @Override
-    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-        UserInfo result = userRepository.findUserByLoginId(loginId);
-        try{
-            loginRecord(result.getUserSeq());
-        } catch (Exception e){
-            log.error("로그인 이력 남기는 도중 에러 발생 , {}",e.getMessage());
-            e.getStackTrace();
-        }
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserInfo result = userRepository.findUserByLoginId(username);
+//        try{
+//            loginRecord(result.getUserSeq());
+//        } catch (Exception e){
+//            log.error("로그인 이력 남기는 도중 에러 발생 , {}",e.getMessage());
+//            e.getStackTrace();
+//        }
         return User.builder()
                 .username(result.getLoginId())
                 .password(result.getPassword())
+                .roles(Role.USER.getKey())
                 .build();
+    }
+
+    public void loginRecord(String loginId){
+        try{
+            UserInfo result = userRepository.findUserByLoginId(loginId);
+            LoginHistory loginHistory = LoginHistory.builder()
+                    .userSeq(result.getUserSeq())
+                    .build();
+            loginHistoryRepository.save(loginHistory);
+        }catch(Exception e){
+            log.error("로그인 이력 남기는 도중 에러 발생 , {}",e.getMessage());
+            log.error(e.getStackTrace().toString());
+        }
     }
 }

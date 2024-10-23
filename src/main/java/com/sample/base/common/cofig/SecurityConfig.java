@@ -5,13 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
@@ -21,7 +22,17 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
 
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailService) throws Exception {
+        return http
+                .getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder)
+                .and()
+                .build();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -29,16 +40,18 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .headers((headers) -> headers.frameOptions(
+                .headers((headers)
+                        -> headers.frameOptions(
                         HeadersConfigurer.FrameOptionsConfig::disable
                 ))
                 .formLogin((form) ->
                         form
                                 .loginPage("/login")
-                                .usernameParameter("loginId")
+                                .usernameParameter("username")
                                 .passwordParameter("password")
                                 .loginProcessingUrl("/api/user/login")
-                                .defaultSuccessUrl("/",true)
+                                .defaultSuccessUrl("/api/user/loginSuccess",true)
+                                .failureUrl("/api/user/loginFailure")
 
                 )
                 .logout((logout) ->
@@ -51,8 +64,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((req) ->
                         req
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
-                                .requestMatchers("/","/health-check","/swagger-ui/**").permitAll()
-                                .requestMatchers("/api/**").hasRole(Role.USER.name())
+                                .requestMatchers("/","/health-check","/swagger-ui/**","/api/user/join").permitAll()
+                                .requestMatchers("/api/**").hasRole(Role.USER.getKey())
                                 .anyRequest().authenticated()
 
 

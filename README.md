@@ -3,9 +3,23 @@
 ### 개발 환경 Spec
 <ul>
 <li>JDK : 17</li>
-<li>SpringBoot: 3.3.3</li>
+<li>SpringBoot: 3.3.4</li>
 <li>DB : H2 DataBase</li>
 </ul>
+
+## SpringDocs
+
+### Gradle
+`
+implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+`
+
+### Git Repository
+https://github.com/springdoc/springdoc-openapi-demos/tree/master
+
+### url
+http://localhost:8080/swagger-ui.html
+
 
 ### Component  Tree
 📦base <br>
